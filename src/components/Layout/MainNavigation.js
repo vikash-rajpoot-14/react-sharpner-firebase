@@ -11,7 +11,6 @@ const MainNavigation = () => {
   const LogoutHandler = (e)=>{
   e.preventDefault();
   ctx.Logout()
-  localStorage.removeItem('user')
   history.replace("/auth")
   }
   

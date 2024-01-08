@@ -1,34 +1,46 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext({
-     token : "",
-     isLoggedIn : false,
-     Login : ()=>{},
-     Logout : ()=>{},
+  token: "",
+  isLoggedIn: false,
+  Login: () => {},
+  Logout: () => {},
 });
 
-const AuthContextProvider = ({children})=>{
-    const [token,setToken ] = useState(null);
-    const isLoggedIn = !!token;
-    const LoginHandler = (token)=>{
-        setToken(token);
-    }
-    const LogOutHandler = ()=>{
-        setToken(null);
-    }
+const AuthContextProvider = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  // console.log("constext",token)
+  const isLoggedIn = !!token;
+  const LoginHandler = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
+  const LogOutHandler = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
-    const contextValue = {
-        token : token,
-        isLoggedIn : isLoggedIn,
-        Login : LoginHandler,
-        Logout : LogOutHandler
-    }
-
+  useEffect(() => {
+    let pid = setTimeout(() => {
+        // console.log("timeout")
+      LogOutHandler();
+    }, 600000);
     return (
-        <AuthContext.Provider value={contextValue}>
-             {children}
-        </AuthContext.Provider>
+        // console.log("cleanup",pid),
+        clearTimeout(pid)
     )
-}
+  });
 
-export default AuthContextProvider
+  const contextValue = {
+    token: token,
+    isLoggedIn: isLoggedIn,
+    Login: LoginHandler,
+    Logout: LogOutHandler,
+  };
+
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
+};
+
+export default AuthContextProvider;

@@ -45,8 +45,8 @@ const AuthForm = () => {
           }
         })
         .then((data) => {
-          // context.Login(data.idToken);
-          localStorage.setItem("user", JSON.stringify({token : data.idToken , isLoggedin : true}));
+          console.log("login",data)
+          context.Login(data.idToken);
           setLoading(false);
           history.push("/profile");
         })
@@ -62,7 +62,7 @@ const AuthForm = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, returnSecureToken: true }),
+          body: JSON.stringify({ email, password, returnSecureToken: true ,}),
         }
       )
         .then((response) => {
@@ -84,7 +84,6 @@ const AuthForm = () => {
         .then((data) => {
           console.log("signup", data);
           context.Login(data.idToken);
-          localStorage.setItem("user", JSON.stringify({token : data.idToken , isLoggedin : true}));
           setLoading(false);
           history.push("/profile");
         })
