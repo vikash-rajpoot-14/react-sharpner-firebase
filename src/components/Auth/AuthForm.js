@@ -9,7 +9,6 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
   const context = useContext(AuthContext);
   const history = useHistory();
-  // console.log(context);
   const emailRef = useRef();
   const passwordRef = useRef();
   const switchAuthModeHandler = () => {
@@ -20,7 +19,6 @@ const AuthForm = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    // console.log(email, password);
     if (isLogin) {
       setLoading(true);
       fetch(
