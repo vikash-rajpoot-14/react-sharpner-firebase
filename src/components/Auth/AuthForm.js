@@ -9,7 +9,7 @@ const AuthForm = () => {
   const [loading, setLoading] = useState(false);
   const context = useContext(AuthContext);
   const history = useHistory();
-  console.log(context);
+  // console.log(context);
   const emailRef = useRef();
   const passwordRef = useRef();
   const switchAuthModeHandler = () => {
@@ -47,13 +47,13 @@ const AuthForm = () => {
           }
         })
         .then((data) => {
-          context.Login(data.idToken);
+          // context.Login(data.idToken);
           localStorage.setItem("user", JSON.stringify({token : data.idToken , isLoggedin : true}));
           setLoading(false);
           history.push("/profile");
         })
         .catch((error) => {
-          console.log("signin", error);
+          // console.log("signin", error);
           setLoading(false);
           alert(error.message);
         });
@@ -72,7 +72,7 @@ const AuthForm = () => {
             return response.json();
           } else {
             return response.json().then((data) => {
-              console.log(data);
+              // console.log(data);
               let errormessage = "Authentication failed";
               if (data && data.error && data.error.message) {
                 errormessage = data.error.message;

@@ -13,7 +13,7 @@ const submithandler = (e)=>{
   e.preventDefault();
   const EnteredPassword = passwordRef.current.value;
   const local = JSON.parse(localStorage.getItem("user"))
-  console.log(local)
+  // console.log(local)
   setLoading(true)
   fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDQfowKtZe2ycOBdfKDhwFN3-Pg20dizhk",{
     method: 'POST',
